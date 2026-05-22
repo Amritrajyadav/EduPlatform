@@ -74,23 +74,46 @@ async function registerUser() {
 
     showLoader("Creating Account...");
 
-    const res = await fetch(`${API_URL}/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password, mobile, role, subject, experience })
-    });
+    try {
 
-    const data = await res.json();
+        const res = await fetch(`${API_URL}/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                password,
+                mobile,
+                role,
+                subject,
+                experience
+            })
+        });
 
-    hideLoader();
+        const data = await res.json();
 
-    if (res.ok) {
-        showToast(data.message, "success");
-        setTimeout(() => {
-            window.location.href = "login.html";
-        }, 1000);
-    } else {
-        showToast(data.message, "error");
+        hideLoader();
+
+        if (res.ok) {
+            showToast(data.message || "Account Created", "success");
+
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1000);
+
+        } else {
+            showToast(data.message || "Registration Failed", "error");
+        }
+
+    } catch (error) {
+
+        hideLoader();
+
+        console.log(error);
+
+        showToast("Server Error", "error");
     }
 }
 
@@ -1589,20 +1612,60 @@ async function submitReview() {
 }
 
 async function createAssignment() {
+
     const payload = {
         courseId: document.getElementById('assignmentCourseId').value,
-        title: document.getElementById('assignmentTitle').value,
         question: document.getElementById('assignmentQuestion').value,
-        type: document.getElementById('assignmentType').value,
-        optionA: document.getElementById('optionA')?.value,
-        optionB: document.getElementById('optionB')?.value,
-        optionC: document.getElementById('optionC')?.value,
-        optionD: document.getElementById('optionD')?.value,
-        correctAnswer: document.getElementById('correctAnswer')?.value
+        optionA: document.getElementById('optionA').value,
+        optionB: document.getElementById('optionB').value,
+        optionC: document.getElementById('optionC').value,
+        optionD: document.getElementById('optionD').value,
+        correctAnswer: document.getElementById('correctAnswer').value
     };
-    const res = await apiFetch(`${API_BASE_URL}/features/assignments`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
-    const data = await res.json();
-    showToast(data.message, res.ok ? 'success' : 'error');
+
+    showLoader("Creating Mock Test...");
+
+    try {
+
+        const res = await apiFetch(
+            `${API_BASE_URL}/mocktest/create`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            }
+        );
+
+        const data = await res.json();
+
+        hideLoader();
+
+        if (res.ok) {
+
+            showToast(data.message, "success");
+
+            document.getElementById('assignmentQuestion').value = "";
+            document.getElementById('optionA').value = "";
+            document.getElementById('optionB').value = "";
+            document.getElementById('optionC').value = "";
+            document.getElementById('optionD').value = "";
+            document.getElementById('correctAnswer').value = "";
+
+        } else {
+
+            showToast(data.message, "error");
+        }
+
+    } catch (error) {
+
+        hideLoader();
+
+        console.log(error);
+
+        showToast("Server Error", "error");
+    }
 }
 
 async function loadAssignments() {
