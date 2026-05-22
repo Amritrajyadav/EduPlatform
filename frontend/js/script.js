@@ -1827,3 +1827,87 @@ async function resetPassword() {
     const data = await res.json();
     showToast(data.message, res.ok ? 'success' : 'error');
 }
+
+
+async function loadMockQuestionsForManage() {
+    const courseId = document.getElementById("manageMockCourseId").value;
+    const container = document.getElementById("manageMockQuestionsContainer");
+
+    if (!courseId) {
+        showToast("Please enter Course ID", "error");
+        return;
+    }
+
+    showLoader("Loading Questions...");
+
+    try {
+        const res = await apiFetch(`${API_BASE_URL}/mocktest/manage/${courseId}`);
+        const data = await res.json();
+
+        hideLoader();
+
+        container.innerHTML = "";
+
+        if (!res.ok) {
+            showToast(data.message || "Unable to load questions", "error");
+            return;
+        }
+
+        if (!data.questions || data.questions.length === 0) {
+            container.innerHTML = "<p>No questions found.</p>";
+            return;
+        }
+
+        data.questions.forEach((q, index) => {
+            container.innerHTML += `
+                <div class="card">
+                    <h3>Q${index + 1}. ${q.question}</h3>
+                    <p>A. ${q.optionA}</p>
+                    <p>B. ${q.optionB}</p>
+                    <p>C. ${q.optionC}</p>
+                    <p>D. ${q.optionD}</p>
+                    <p><strong>Correct:</strong> ${q.correctAnswer}</p>
+
+                    <button class="delete-btn" onclick="deleteMockQuestion(${q.id}, '${courseId}')">
+                        Delete Question
+                    </button>
+                </div>
+            `;
+        });
+
+    } catch (error) {
+        hideLoader();
+        console.log(error);
+        showToast("Server Error", "error");
+    }
+}
+
+async function deleteMockQuestion(id, courseId) {
+    if (!confirm("Are you sure you want to delete this question?")) {
+        return;
+    }
+
+    showLoader("Deleting Question...");
+
+    try {
+        const res = await apiFetch(`${API_BASE_URL}/mocktest/delete/${id}`, {
+            method: "DELETE"
+        });
+
+        const data = await res.json();
+
+        hideLoader();
+
+        if (res.ok) {
+            showToast(data.message, "success");
+            loadMockQuestionsForManage();
+        } else {
+            showToast(data.message || "Delete failed", "error");
+        }
+
+    } catch (error) {
+        hideLoader();
+        console.log(error);
+        showToast("Server Error", "error");
+    }
+}

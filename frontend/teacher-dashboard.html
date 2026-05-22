@@ -105,6 +105,17 @@
             <textarea id="assignmentQuestion" placeholder="Question"></textarea>
             <input id="optionA" placeholder="Option A"><input id="optionB" placeholder="Option B"><input id="optionC" placeholder="Option C"><input id="optionD" placeholder="Option D"><input id="correctAnswer" placeholder="Correct Answer A/B/C/D">
             <button onclick="createAssignment()">Create Assignment</button>
+            <div class="card">
+                <h2>Manage Mock Test Questions</h2>
+
+                <input type="number" id="manageMockCourseId" placeholder="Enter Course ID">
+
+                <button onclick="loadMockQuestionsForManage()">
+                    Load Questions
+                </button>
+
+                <div id="manageMockQuestionsContainer"></div>
+            </div>
         </section>
 
         <section id="liveClasses" class="panel-section">
