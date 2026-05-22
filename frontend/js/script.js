@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://eduplatform-5i45.onrender.com";
+const API_BASE_URL = "https://eduplatform-5i45.onrender.com/api";
 const API_URL = `${API_BASE_URL}/auth`;
 
 function getToken() {
