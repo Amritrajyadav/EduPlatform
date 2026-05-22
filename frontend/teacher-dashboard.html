@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="checkAuth('teacher')">
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <h2>Amrit-Tech</h2>
+
+        <a href="profile.html">My Profile</a>
+        <a href="teacher-dashboard.html">Dashboard</a>
+        <a href="#createCourse">Create Course</a>
+        <a href="#uploadVideo">Upload Video</a>
+        <a href="#uploadNotes">Upload Notes</a>
+        <a href="#assignments">Assignments</a>
+        <a href="#liveClasses">Live Classes</a>
+        <a href="#courseBuilder">Course Builder</a>
+
+        <button class="theme-toggle" onclick="toggleTheme()">
+            Toggle Theme
+        </button>
+        <button onclick="logoutUser()">Logout</button>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="topbar">
+            <div>
+                <h1>Teacher Dashboard</h1>
+                <p>Create courses, upload videos, and manage learning content.</p>
+            </div>
+
+            <div class="dashboard-user">
+
+                <div class="dashboard-avatar">
+                    👨‍🏫
+                </div>
+
+                <div>
+                    <h3 id="dashboardUserName">Teacher</h3>
+                    <p>Teacher Account</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Create Course</h3>
+                <p>Launch new learning content</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Upload Videos</h3>
+                <p>Add lectures for students</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Upload Notes</h3>
+                <p>Share PDFs and materials</p>
+            </div>
+        </div>
+
+        <section id="createCourse" class="panel-section">
+            <h2>Create Course</h2>
+
+            <input type="text" id="courseTitle" placeholder="Course Title">
+            <textarea id="courseDescription" placeholder="Course Description"></textarea>
+            <input type="number" id="coursePrice" placeholder="Course Price">
+            <input type="text" id="courseThumbnail" placeholder="Thumbnail URL optional">
+
+            <button onclick="createCourseFromTeacher()">Create Course</button>
+        </section>
+
+        <section id="uploadVideo" class="panel-section">
+            <h2>Upload Course Video</h2>
+
+            <input type="number" id="uploadCourseId" placeholder="Course ID">
+            <input type="file" id="courseVideoFile" accept="video/*">
+
+            <button onclick="uploadCourseVideo()">Upload Video</button>
+        </section>
+
+        <section id="uploadNotes" class="panel-section">
+            <h2>Upload Course Notes / PDF</h2>
+
+            <input type="number" id="noteCourseId" placeholder="Course ID">
+            <input type="text" id="noteTitle" placeholder="Note Title">
+            <input type="file" id="noteFile" accept=".pdf,.doc,.docx,.ppt,.pptx">
+
+            <button onclick="uploadCourseNote()">Upload Note</button>
+        </section>
+
+        <section id="assignments" class="panel-section">
+            <h2>Create Assignment / Chapter Quiz</h2>
+            <input type="number" id="assignmentCourseId" placeholder="Course ID">
+            <input id="assignmentTitle" placeholder="Assignment Title">
+            <select id="assignmentType"><option value="mcq">MCQ</option><option value="coding">Coding</option><option value="upload">File Upload</option></select>
+            <textarea id="assignmentQuestion" placeholder="Question"></textarea>
+            <input id="optionA" placeholder="Option A"><input id="optionB" placeholder="Option B"><input id="optionC" placeholder="Option C"><input id="optionD" placeholder="Option D"><input id="correctAnswer" placeholder="Correct Answer A/B/C/D">
+            <button onclick="createAssignment()">Create Assignment</button>
+        </section>
+
+        <section id="liveClasses" class="panel-section">
+            <h2>Schedule Live Class</h2>
+            <input type="number" id="liveCourseId" placeholder="Course ID">
+            <input id="liveTitle" placeholder="Class Title">
+            <input id="liveMeetLink" placeholder="Google Meet / Zoom Link">
+            <input id="liveScheduledAt" type="datetime-local">
+            <button onclick="createLiveClass()">Schedule Class</button>
+        </section>
+
+        <section id="courseBuilder" class="panel-section">
+            <h2>Admin Course Builder</h2>
+            <input type="number" id="lessonCourseId" placeholder="Course ID">
+            <input id="lessonTitle" placeholder="Lesson / Module Title">
+            <select id="lessonType"><option value="video">Video</option><option value="notes">Notes</option><option value="quiz">Quiz</option><option value="assignment">Assignment</option></select>
+            <input id="lessonUrl" placeholder="Content URL optional">
+            <input type="number" id="lessonOrder" placeholder="Sort Order">
+            <button onclick="createLesson()">Add Lesson</button>
+        </section>
+
+        <div class="dashboard-cards">
+            <div class="card">Start Live Class</div>
+            <div class="card">Joined Students</div>
+            <div class="card">Student Results</div>
+        </div>
+
+    </main>
+
+</div>
+<script src="js/script.js"></script>
+<script>
+    loadTheme();
+    loadDashboardUser();
+</script>
+</body>
+</html>

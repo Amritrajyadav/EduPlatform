@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Amrit Tech Study</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="auth-wrapper">
+    <div class="auth-brand">
+        <h1>Start Your Journey</h1>
+        <p>Register as a student or teacher and become part of Amrit-Tech-Study.</p>
+    </div>
+
+    <div class="form-container">
+        <div class="auth-icon">🚀</div>
+
+        <h2>Create Account</h2>
+        <p class="auth-subtitle">Choose your role and join today</p>
+
+        <input type="text" id="name" placeholder="Full Name">
+        <input type="email" id="email" placeholder="Email Address">
+        <input type="password" id="password" placeholder="Password">
+        <input type="text" id="mobile" placeholder="Mobile Number">
+
+        <select id="role" onchange="toggleTeacherFields()">
+            <option value="student">Register as Student</option>
+            <option value="teacher">Register as Teacher</option>
+        </select>
+
+        <div id="teacherFields" style="display:none;">
+            <input type="text" id="subject" placeholder="Teaching Subject">
+            <input type="text" id="experience" placeholder="Experience">
+        </div>
+
+        <button onclick="registerUser()">Register</button>
+
+        <p class="auth-link">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </p>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+<script>
+    loadTheme();
+</script>
+</body>
+</html>

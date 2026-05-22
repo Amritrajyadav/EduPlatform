@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Results</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="checkAuth('student')">
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <h2>Amrit-Tech</h2>
+
+        <a href="student-dashboard.html">Dashboard</a>
+        <a href="courses.html">All Courses</a>
+        <a href="result.html">My Results</a>
+
+        <button onclick="logoutUser()">Logout</button>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="topbar">
+            <div>
+                <h1>Performance Dashboard</h1>
+                <p>Track your mock test scores and learning progress.</p>
+            </div>
+
+            <div class="profile-badge">
+                📊 Results
+            </div>
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <h3>Mock Tests</h3>
+                <p>Track all attempts</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Performance</h3>
+                <p>Improve your score</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Learning</h3>
+                <p>Practice consistently</p>
+            </div>
+
+        </div>
+
+        <section class="panel-section">
+            <h2>My Test Results</h2>
+
+            <div id="resultContainer" class="result-grid"></div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="js/script.js"></script>
+
+<script>
+    loadTheme();
+    loadMyResults();
+</script>
+
+</body>
+</html>

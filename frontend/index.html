@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduPlatform - Full Stack LMS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="public-navbar">
+    <div class="brand">🎓 EduPlatform</div>
+    <div class="nav-links">
+      <a href="courses.html">Courses</a>
+      <a href="login.html">Login</a>
+      <a class="nav-cta" href="register.html">Get Started</a>
+      <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    </div>
+  </nav>
+
+  <section class="hero-section">
+    <div class="hero-content">
+      <p class="hero-badge">Full Stack LMS • Node.js • MySQL • Razorpay</p>
+      <h1>Learn, practice, track progress and earn certificates.</h1>
+      <p>EduPlatform is a modern learning management system with student, teacher and admin dashboards, course purchases, mock tests, certificates, analytics and AI learning support.</p>
+      <div class="hero-actions">
+        <a class="primary-btn" href="register.html">Start Learning</a>
+        <a class="secondary-btn" href="courses.html">Explore Courses</a>
+      </div>
+    </div>
+    <div class="hero-glass-card">
+      <h2>Resume Ready Features</h2>
+      <div class="mini-item">✅ Role-based auth</div>
+      <div class="mini-item">✅ Course progress tracking</div>
+      <div class="mini-item">✅ Certificate unlock system</div>
+      <div class="mini-item">✅ Admin analytics dashboard</div>
+      <div class="mini-item">✅ AI assistant module</div>
+    </div>
+  </section>
+
+  <section class="feature-grid-section">
+    <div class="card"><h3>Modern UI</h3><p>Responsive layout, sidebar dashboards, glass cards and dark mode.</p></div>
+    <div class="card"><h3>Secure Backend</h3><p>Helmet, CORS control, rate limiting, JWT middleware and environment safety.</p></div>
+    <div class="card"><h3>Advanced LMS</h3><p>Certificates, progress, wishlist, reviews, live classes and discussions.</p></div>
+  </section>
+
+  <script src="js/script.js"></script>
+  <script>loadTheme();</script>
+</body>
+</html>

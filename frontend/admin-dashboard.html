@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="checkAuth('admin')">
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <h2>Amrit-Tech</h2>
+
+        <a href="admin-dashboard.html">Dashboard</a>
+        <a href="#users">Manage Users</a>
+        <a href="#courses">Manage Courses</a>
+        <a href="#purchases">Purchases</a>
+        <a href="#payments">Payments</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#notifications">Notifications</a>
+        <a href="profile.html">My Profile</a>
+
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+        <button onclick="logoutUser()">Logout</button>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="topbar">
+            <div>
+                <h1>Owner Control Panel</h1>
+                <p>Full website control: users, teachers, students, courses, purchases and payments.</p>
+            </div>
+
+            <div class="dashboard-user">
+                <div class="dashboard-avatar">🛡️</div>
+                <div>
+                    <h3 id="dashboardUserName">Admin</h3>
+                    <p>Administrator</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Users</h3>
+                <p id="totalUsers">Loading...</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Students</h3>
+                <p id="totalStudents">Loading...</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Teachers</h3>
+                <p id="totalTeachers">Loading...</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Admins</h3>
+                <p id="totalAdmins">Loading...</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Courses</h3>
+                <p id="totalCourses">Loading...</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Purchases</h3>
+                <p id="totalPurchases">Loading...</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Payments</h3>
+                <p id="totalPayments">Loading...</p>
+            </div>
+        <div class="stat-card"><h3>Total Revenue</h3><p id="totalRevenue">Loading...</p></div>
+            <div class="stat-card"><h3>Active Students</h3><p id="activeStudents">Loading...</p></div>
+            <div class="stat-card"><h3>Pending Assignments</h3><p id="pendingAssignments">Loading...</p></div>
+            <div class="stat-card"><h3>Pending Reviews</h3><p id="pendingReviews">Loading...</p></div>
+            <div class="stat-card"><h3>Most Purchased</h3><p id="mostPurchasedCourse">Loading...</p></div>
+        </div>
+
+        <section id="analytics" class="panel-section">
+            <h2>Real Dashboard Analytics</h2>
+            <canvas id="adminSalesChart" height="110"></canvas>
+        </section>
+
+        <section id="notifications" class="panel-section">
+            <h2>Send Announcement</h2>
+            <input id="notifyTitle" placeholder="Title">
+            <textarea id="notifyMessage" placeholder="Message"></textarea>
+            <select id="notifyRole"><option value="all">All</option><option value="student">Students</option><option value="teacher">Teachers</option><option value="admin">Admins</option></select>
+            <button onclick="sendAdminNotification()">Send Notification</button>
+        </section>
+
+        <section id="users" class="panel-section">
+            <h2>All Users</h2>
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Mobile</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminUsersTable"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="courses" class="panel-section">
+            <h2>All Courses</h2>
+            <div id="adminCourseContainer" class="dashboard-cards"></div>
+        </section>
+
+        <section id="purchases" class="panel-section">
+            <h2>Course Purchases</h2>
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Student ID</th>
+                            <th>Course ID</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminPurchasesTable"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="payments" class="panel-section">
+            <h2>Payments</h2>
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Student ID</th>
+                            <th>Course ID</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminPaymentsTable"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/script.js"></script>
+
+<script>
+    loadTheme();
+    loadDashboardUser();
+    loadAdminDashboard();
+</script>
+
+</body>
+</html>

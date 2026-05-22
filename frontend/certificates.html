@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Certificates</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="checkAuth('student')">
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <h2>Amrit-Tech</h2>
+
+        <a href="student-dashboard.html">Dashboard</a>
+        <a href="courses.html">Browse Courses</a>
+        <a href="result.html">My Results</a>
+        <a href="certificates.html">My Certificates</a>
+        <a href="profile.html">My Profile</a>
+
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+        <button onclick="logoutUser()">Logout</button>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="topbar">
+            <div>
+                <h1>My Certificates</h1>
+                <p>View and download certificates unlocked after course completion.</p>
+            </div>
+
+            <div class="profile-badge">
+                🎓 Achievement
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <button onclick="downloadCertificate()">Download Current Certificate</button>
+            <button onclick="localStorage.removeItem('selectedCertificate'); location.reload();">Show Certificate List</button>
+        </div>
+
+        <section id="certificatePrintArea" class="certificate-wrapper">
+            <div class="certificate-card">
+                <div class="certificate-border">
+                    <h2>Certificate of Completion</h2>
+                    <p class="certificate-subtitle">This certificate is proudly presented to</p>
+
+                    <h1 id="certStudentName">Student Name</h1>
+
+                    <p>for successfully completing the course</p>
+
+                    <h3 id="certCourseName">Course Name</h3>
+
+                    <div class="certificate-meta">
+                        <span>Issued Date: <strong id="certIssuedDate">-</strong></span>
+                        <span>Certificate ID: <strong id="certId">-</strong></span>
+                    </div>
+
+                    <div class="certificate-footer">
+                        <div>
+                            <strong>Amrit-Tech LMS</strong>
+                            <p>Learning Platform</p>
+                        </div>
+
+                        <div class="signature-box">
+                            <strong>Authorized Signature</strong>
+                            <p>Admin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel-section no-print">
+            <h2>All Certificates</h2>
+            <div id="certificatesContainer" class="dashboard-cards"></div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="js/script.js"></script>
+<script>
+    loadTheme();
+    renderCertificatePage();
+    loadMyCertificates();
+</script>
+
+</body>
+</html>

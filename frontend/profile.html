@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <h2>Amrit-Tech</h2>
+
+        <a href="#" onclick="goToDashboard()">Dashboard</a>
+        <a href="profile.html">My Profile</a>
+        <a href="courses.html">Courses</a>
+        <a href="result.html">Results</a>
+
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+        <button onclick="logoutUser()">Logout</button>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="topbar">
+            <div>
+                <h1>My Profile</h1>
+                <p>Your account details and role information.</p>
+            </div>
+
+            <div class="profile-badge" id="profileRoleBadge">
+                User
+            </div>
+        </div>
+
+        <section class="panel-section profile-card">
+
+    <div class="profile-avatar-wrapper">
+
+        <img
+            id="profileImage"
+            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            alt="Profile"
+            class="profile-image"
+        >
+
+    </div>
+
+    <input
+        type="file"
+        id="profilePhotoInput"
+        accept="image/*"
+    >
+
+    <button
+        class="profile-upload-btn"
+        type="button"
+        onclick="uploadProfilePhoto()"
+    >
+        Upload Photo
+    </button>
+
+    <button
+        class="delete-photo-btn"
+        onclick="deleteProfilePhoto()"
+    >
+        Delete Photo
+    </button>
+
+    <h2 id="profileName">Loading...</h2>
+
+    <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+
+    <p><strong>Role:</strong> <span id="profileRole"></span></p>
+
+    <p><strong>User ID:</strong> <span id="profileId"></span></p>
+
+    </section>
+
+    </main>
+
+</div>
+
+<script src="js/script.js"></script>
+
+<script>
+    loadTheme();
+    loadProfile();
+</script>
+
+</body>
+</html>

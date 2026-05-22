@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Courses</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="loadCourses()">
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <h2>Amrit-Tech</h2>
+
+        <a href="student-dashboard.html">Dashboard</a>
+        <a href="courses.html">All Courses</a>
+        <a href="result.html">My Results</a>
+
+        <button onclick="logoutUser()">Logout</button>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="topbar">
+            <div>
+                <h1>Explore Courses</h1>
+                <p>Choose your course, buy it, and start learning instantly.</p>
+            </div>
+
+            <div class="profile-badge">
+                📚 Courses
+            </div>
+        </div>
+
+        <section class="panel-section filter-panel">
+            <input id="courseSearch" oninput="applyCourseFilters()" placeholder="Search courses by title/description">
+            <input id="courseMaxPrice" type="number" oninput="applyCourseFilters()" placeholder="Max price">
+            <label><input id="courseFreeOnly" type="checkbox" onchange="applyCourseFilters()"> Free only</label>
+        </section>
+
+        <div id="courseContainer" class="course-grid"></div>
+
+    </main>
+
+</div>
+
+<script src="js/script.js"></script>
+<script>
+    loadTheme();
+</script>
+</body>
+</html>

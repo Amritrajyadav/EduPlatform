@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Player</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="checkAuth('student')">
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <h2>Amrit-Tech</h2>
+
+        <a href="student-dashboard.html">Dashboard</a>
+        <a href="courses.html">All Courses</a>
+        <a href="result.html">My Results</a>
+        <a href="mock-test.html">Mock Test</a>
+        <a href="certificates.html">Certificates</a>
+        <a href="assignments.html">Assignments</a>
+        <a href="live-classes.html">Live Classes</a>
+        <a href="student-notes.html">Personal Notes</a>
+        <a href="discussion.html">Discussion</a>
+
+        <button onclick="logoutUser()">Logout</button>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="topbar">
+            <div>
+                <h1 id="courseTitle">Course Player</h1>
+                <p id="courseDescription">Watch your lecture and access course material.</p>
+            </div>
+
+            <div class="profile-badge">
+                ▶ Learning
+            </div>
+        </div>
+
+        <section class="learning-player">
+            <div class="video-box premium-video">
+                <video id="courseVideo" width="100%" controls>
+                    <source id="videoSource" src="" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+            </div>
+
+            <div class="course-progress-panel">
+                <div class="progress-info">
+                    <span>Learning Progress</span>
+                    <strong id="progressText">0% Completed</strong>
+                </div>
+
+                <div class="progress-track">
+                    <div id="courseProgressFill" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <div id="certificatePanel" class="certificate-unlock-panel" style="display:none;">
+                <h3>Certificate</h3>
+                <p id="certificateStatusText">Complete this course to unlock your certificate.</p>
+                <button id="issueCertificateBtn" type="button" disabled>
+                    Certificate Locked
+                </button>
+            </div>
+
+            <div class="player-actions">
+                <button id="markCompleteBtn" type="button">
+                    Mark as Complete
+                </button>
+
+                <button onclick="window.location.href='mock-test.html'">
+                    Start Mock Test
+                </button>
+
+                <button onclick="window.location.href='student-dashboard.html'">
+                    Back to Dashboard
+                </button>
+            </div>
+        </section>
+
+        <section class="panel-section"><h2>Course Builder Lessons</h2><div id="lessonsContainer"></div></section>
+
+        <section class="panel-section">
+            <h2>Course Notes</h2>
+            <p>Download PDFs, documents and learning resources uploaded by teacher.</p>
+
+            <div id="notesContainer" class="notes-grid"></div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="js/script.js"></script>
+
+<script>
+    loadTheme();
+    loadCoursePlayer();
+    loadCourseNotes();
+    loadLessons();
+</script>
+
+</body>
+</html>

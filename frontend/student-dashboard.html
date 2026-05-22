@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="checkAuth('student')">
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <h2>Amrit-Tech</h2>
+
+        <a href="student-dashboard.html">Dashboard</a>
+        <a href="courses.html">Browse Courses</a>
+        <a href="result.html">My Results</a>
+        <a href="certificates.html">My Certificates</a>
+        <a href="wishlist.html">Wishlist</a>
+        <a href="live-classes.html">Live Classes</a>
+        <a href="assignments.html">Assignments</a>
+        <a href="ai-assistant.html">AI Assistant</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="placement.html">Placement</a>
+        <a href="profile.html">My Profile</a>
+
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+        <button onclick="logoutUser()">Logout</button>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="topbar">
+            <div>
+                <h1>Student Dashboard</h1>
+                <p>Welcome back! Continue your learning journey.</p>
+            </div>
+
+            <div class="dashboard-user">
+                <div class="dashboard-avatar">👤</div>
+
+                <div>
+                    <h3 id="dashboardUserName">Student</h3>
+                    <p>Student Account</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>My Courses</h3>
+                <p>Purchased learning content</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Mock Tests</h3>
+                <p>Practice and improve</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Results</h3>
+                <p>Track your performance</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Certificates</h3>
+                <p>Download achievements</p>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <button onclick="window.location.href='courses.html'">
+                Browse All Courses
+            </button>
+
+            <button onclick="window.location.href='result.html'">
+                View My Results
+            </button>
+
+            <button onclick="window.location.href='certificates.html'">
+                My Certificates
+            </button>
+        <button onclick="window.location.href='subscription.html'">Subscription</button>
+            <button onclick="window.location.href='discussion.html'">Discussion Forum</button>
+        </div>
+
+        <section class="panel-section">
+            <h2>Notifications</h2>
+            <div id="notificationsBox"></div>
+        </section>
+
+        <h2>My Purchased Courses</h2>
+
+        <div id="myCoursesContainer" class="dashboard-cards"></div>
+
+    </main>
+
+</div>
+
+<script src="js/script.js"></script>
+
+<script>
+    loadTheme();
+    loadDashboardUser();
+    loadMyCourses();
+    loadNotifications();
+</script>
+
+</body>
+</html>

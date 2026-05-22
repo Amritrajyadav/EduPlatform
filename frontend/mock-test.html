@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Test</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="checkAuth('student')">
+
+<div class="dashboard">
+    <h1>Mock Test</h1>
+
+    <div id="mockTestContainer"></div>
+
+    <button onclick="submitMockTest()">Submit Test</button>
+
+    <h2 id="testResult"></h2>
+
+    <button onclick="window.location.href='student-dashboard.html'">
+        Back to Dashboard
+    </button>
+</div>
+
+<script src="js/script.js"></script>
+
+<script>
+    loadMockTest();
+</script>
+
+</body>
+</html>
