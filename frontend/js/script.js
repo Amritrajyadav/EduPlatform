@@ -1720,7 +1720,7 @@ async function loadPlacement() {
     if (!box) return;
     const res = await apiFetch(`${API_BASE_URL}/features/placement`);
     const data = await res.json();
-    box.innerHTML = `<h3>Resumes</h3>${(data.resumes || []).map(r => `<div class="mini-item">${safeText(r.title)} - <a target="_blank" href="http://localhost:5000/uploads/${safeText(r.fileUrl)}">View</a></div>`).join('') || '<p>No resume.</p>'}<h3>Applications</h3>${(data.applications || []).map(a => `<div class="mini-item">${safeText(a.company)} - ${safeText(a.role)} (${a.status})</div>`).join('') || '<p>No applications.</p>'}`;
+    box.innerHTML = `<h3>Resumes</h3>${(data.resumes || []).map(r => `<div class="mini-item">${safeText(r.title)} - <a target="_blank" href="https://eduplatform-5i45.onrender.com/uploads/${safeText(r.fileUrl)}">View</a></div>`).join('') || '<p>No resume.</p>'}<h3>Applications</h3>${(data.applications || []).map(a => `<div class="mini-item">${safeText(a.company)} - ${safeText(a.role)} (${a.status})</div>`).join('') || '<p>No applications.</p>'}`;
 }
 
 async function createLesson() {
