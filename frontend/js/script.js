@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://eduplatform-5i45.onrender.com";
 const API_URL = `${API_BASE_URL}/auth`;
 
 function getToken() {
@@ -893,7 +893,7 @@ async function loadCourseNotes() {
         container.innerHTML += `
             <div class="card">
                 <h3>${note.title}</h3>
-                <a href="http://localhost:5000/uploads/${note.fileUrl}" target="_blank">
+                <a href="https://eduplatform-5i45.onrender.com/uploads/${note.fileUrl}" target="_blank">
                     View / Download
                 </a>
             </div>

@@ -46,7 +46,7 @@ const uploadProfilePhoto = async (req, res) => {
             message: "Profile photo uploaded successfully",
             photo: req.file.filename,
             photoUrl:
-                `http://localhost:5000/uploads/${req.file.filename}`
+                `https://eduplatform-5i45.onrender.com/uploads/${req.file.filename}`
         });
 
     } catch (error) {

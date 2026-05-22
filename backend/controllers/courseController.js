@@ -210,7 +210,7 @@ const uploadCourseVideo = async (req, res) => {
             });
         }
 
-        course.videoUrl = `http://localhost:5000/uploads/videos/${req.file.filename}`;
+        course.videoUrl = `https://eduplatform-5i45.onrender.com/uploads/videos/${req.file.filename}`;
 
         await course.save();
 
