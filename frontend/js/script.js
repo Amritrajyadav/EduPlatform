@@ -600,6 +600,8 @@ async function loadMockTest() {
     const res = await apiFetch(`${API_BASE_URL}/mocktest/${courseId}`);
     const data = await res.json();
 
+    console.log(data);
+
     mockQuestions = data.questions;
 
     const container = document.getElementById("mockTestContainer");
@@ -1099,7 +1101,7 @@ async function uploadProfilePhoto() {
         hideLoader();
 
         console.log(data);
-
+        
         if (res.ok) {
 
             const imageUrl = data.photoUrl;
