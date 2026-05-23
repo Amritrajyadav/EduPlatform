@@ -593,6 +593,7 @@ async function uploadCourseVideo() {
 }
 
 let mockQuestions = [];
+
 async function loadMockTest() {
     const courseId = localStorage.getItem("selectedCourseId") || 1;
     console.log("Selected Course ID:", courseId);
@@ -605,16 +606,14 @@ async function loadMockTest() {
     const container = document.getElementById("mockTestContainer");
     container.innerHTML = "";
 
-    const mockQuestions =
-        data.questions ||
-        data.mockQuestions ||
-        data.mockTests ||
-        data.data ||
-        data ||
-        [];
+    mockQuestions = data.questions || data.mockQuestions || data.mockTests || data.data || [];
 
     if (!Array.isArray(mockQuestions) || mockQuestions.length === 0) {
-        container.innerHTML = `<div class="card"><h3>No Mock Questions Found</h3></div>`;
+        container.innerHTML = `
+            <div class="card">
+                <h3>No Mock Questions Found</h3>
+            </div>
+        `;
         return;
     }
 
@@ -627,38 +626,6 @@ async function loadMockTest() {
                 <label><input type="radio" name="question${q.id}" value="B"> ${q.optionB || q.option_b}</label>
                 <label><input type="radio" name="question${q.id}" value="C"> ${q.optionC || q.option_c}</label>
                 <label><input type="radio" name="question${q.id}" value="D"> ${q.optionD || q.option_d}</label>
-            </div>
-        `;
-    });
-}
-
-    mockQuestions.forEach((q, index) => {
-
-        container.innerHTML += `
-            <div class="card test-question">
-
-                <h3>Q${index + 1}. ${q.question}</h3>
-
-                <label>
-                    <input type="radio" name="question${q.id}" value="A">
-                    ${q.optionA || q.option_a}
-                </label>
-
-                <label>
-                    <input type="radio" name="question${q.id}" value="B">
-                    ${q.optionB || q.option_b}
-                </label>
-
-                <label>
-                    <input type="radio" name="question${q.id}" value="C">
-                    ${q.optionC || q.option_c}
-                </label>
-
-                <label>
-                    <input type="radio" name="question${q.id}" value="D">
-                    ${q.optionD || q.option_d}
-                </label>
-
             </div>
         `;
     });
