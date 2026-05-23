@@ -1429,7 +1429,41 @@ function renderCertificatePage() {
 }
 
 function downloadCertificate() {
-    window.print();
+    const certificate = document.getElementById("certificatePrintArea");
+
+    if (!certificate) {
+        showToast("Certificate not found", "error");
+        return;
+    }
+
+    const studentName =
+        document.getElementById("certStudentName")?.innerText || "Student";
+
+    const fileName =
+        `EduPlatform-Certificate-${studentName.replace(/\s+/g, "-")}.pdf`;
+
+    const options = {
+        margin: 0.3,
+        filename: fileName,
+        image: {
+            type: "jpeg",
+            quality: 0.98
+        },
+        html2canvas: {
+            scale: 2,
+            useCORS: true
+        },
+        jsPDF: {
+            unit: "in",
+            format: "a4",
+            orientation: "landscape"
+        }
+    };
+
+    html2pdf()
+        .set(options)
+        .from(certificate)
+        .save();
 }
 
 /* ================= ADVANCED LMS FEATURES ================= */
