@@ -1,6 +1,3 @@
-const fs = require("fs");
-const path = require("path");
-
 const User = require("../models/User");
 
 // UPLOAD PROFILE PHOTO
@@ -24,29 +21,15 @@ const uploadProfilePhoto = async (req, res) => {
             });
         }
 
-        // Delete old photo if exists
-        if (user.profilePhoto) {
-
-            const oldPhotoPath = path.join(
-                __dirname,
-                "../uploads",
-                user.profilePhoto
-            );
-
-            if (fs.existsSync(oldPhotoPath)) {
-                fs.unlinkSync(oldPhotoPath);
-            }
-        }
-
-        user.profilePhoto = req.file.filename;
+        // Cloudinary image URL save
+        user.profilePhoto = req.file.path;
 
         await user.save();
 
         res.status(200).json({
             message: "Profile photo uploaded successfully",
-            photo: req.file.filename,
-            photoUrl:
-                `https://eduplatform-5i45.onrender.com/uploads/${req.file.filename}`
+            photo: req.file.path,
+            photoUrl: req.file.path
         });
 
     } catch (error) {
@@ -72,19 +55,6 @@ const deleteProfilePhoto = async (req, res) => {
             return res.status(404).json({
                 message: "User not found"
             });
-        }
-
-        if (user.profilePhoto) {
-
-            const photoPath = path.join(
-                __dirname,
-                "../uploads",
-                user.profilePhoto
-            );
-
-            if (fs.existsSync(photoPath)) {
-                fs.unlinkSync(photoPath);
-            }
         }
 
         user.profilePhoto = null;
