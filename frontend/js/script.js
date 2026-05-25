@@ -357,6 +357,10 @@ async function loadMyCourses() {
                     ${percent > 0 ? "Continue Learning" : "Open Course"}
                 </button>
 
+                <button onclick="openMockTest(${course.id})">
+                    Mock Test
+                </button>
+
                 ${progress.isCompleted ? `<button onclick="openCourse(${course.id})">View Certificate</button>` : ""}
 
             </div>
@@ -367,6 +371,11 @@ async function loadMyCourses() {
 function openCourse(courseId) {
     localStorage.setItem("selectedCourseId", courseId);
     window.location.href = "course-player.html";
+}
+
+function openMockTest(courseId) {
+    localStorage.setItem("selectedCourseId", courseId);
+    window.location.href = "mock-test.html";
 }
 
 async function loadCoursePlayer() {
@@ -595,7 +604,16 @@ async function uploadCourseVideo() {
 let mockQuestions = [];
 
 async function loadMockTest() {
-    const courseId = localStorage.getItem("selectedCourseId") || 1;
+    const courseId = localStorage.getItem("selectedCourseId");
+
+    if (!courseId) {
+        document.getElementById("mockTestContainer").innerHTML = `
+            <div class="card">
+                <h3>Please open mock test from your purchased course.</h3>
+            </div>
+        `;
+        return;
+    }
     console.log("Selected Course ID:", courseId);
 
     const res = await apiFetch(`${API_BASE_URL}/mocktest/${courseId}`);
