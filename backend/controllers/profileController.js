@@ -34,7 +34,7 @@ const uploadProfilePhoto = async (req, res) => {
 
     } catch (error) {
 
-        console.log(error);
+        console.error(error);
 
         res.status(500).json({
             message: "Server Error"
@@ -67,7 +67,7 @@ const deleteProfilePhoto = async (req, res) => {
 
     } catch (error) {
 
-        console.log(error);
+        console.error(error);
 
         res.status(500).json({
             message: "Server Error"
