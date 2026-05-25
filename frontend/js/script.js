@@ -569,7 +569,15 @@ async function createCourseFromTeacher() {
     const data = await res.json();
 
     if (res.ok) {
-        showToast(data.message, "success");
+
+        const courseId = data.course?.id || data.newCourse?.id || data.id;
+
+        showToast(`${data.message}. Course ID: ${courseId}`, "success");
+
+        alert(
+            `Course Created Successfully!\n\nCourse ID: ${courseId}\n\nUse this Course ID to upload video, notes and mock questions.`
+        );
+
     } else {
         showToast(data.message, "error");
     }
