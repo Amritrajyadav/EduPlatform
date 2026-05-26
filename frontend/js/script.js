@@ -185,54 +185,6 @@ function logoutUser() {
     }, 1000);
 }
 
-async function loadCourses() {
-
-    showLoader("Loading Courses...");
-
-    const res = await fetch(`${API_BASE_URL}/course/all`);
-    const data = await res.json();
-
-    hideLoader();
-
-    const container = document.getElementById("courseContainer");
-    container.innerHTML = "";
-
-    data.courses.forEach(course => {
-
-        container.innerHTML += `
-            <div class="card course-card">
-
-                <div class="course-banner">
-                    🚀 Learn Skills
-                </div>
-
-                <div class="course-content">
-
-                    <h3>${course.title}</h3>
-
-                    <p>${course.description}</p>
-
-                    <h4>₹ ${course.price}</h4>
-
-                    <div class="course-buttons">
-
-                        <button onclick="buyCourse(${course.id})">
-                            Buy Now
-                        </button>
-
-                        <button onclick="openCourseFromCourses(${course.id})">
-                            Open Course
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-        `;
-    });
-}
-
 async function buyCourse(courseId) {
     const user = getLoggedInUser();
 
@@ -751,162 +703,6 @@ async function loadMyResults() {
     });
 }
 
-async function loadAdminDashboard() {
-
-    showLoader("Loading Admin Dashboard...");
-
-    const res = await apiFetch(
-        `${API_BASE_URL}/admin/dashboard`
-    );
-
-    const data = await res.json();
-
-    hideLoader();
-
-    if (!res.ok) {
-        showToast(data.message || "Unable to load admin dashboard", "error");
-        return;
-    }
-
-    // STATS
-    document.getElementById("totalUsers").innerText =
-        data.totalUsers;
-
-    document.getElementById("totalStudents").innerText =
-        data.totalStudents;
-
-    document.getElementById("totalTeachers").innerText =
-        data.totalTeachers;
-
-    document.getElementById("totalAdmins").innerText =
-        data.totalAdmins;
-
-    document.getElementById("totalCourses").innerText =
-        data.totalCourses;
-
-    document.getElementById("totalPurchases").innerText =
-        data.totalPurchases;
-
-    document.getElementById("totalPayments").innerText =
-        data.totalPayments;
-
-    // USERS TABLE
-    const usersTable =
-        document.getElementById("adminUsersTable");
-
-    usersTable.innerHTML = "";
-
-    data.users.forEach(user => {
-
-        usersTable.innerHTML += `
-            <tr>
-
-                <td>${user.id}</td>
-
-                <td>${user.name}</td>
-
-                <td>${user.email}</td>
-
-                <td>${user.role}</td>
-
-                <td>${user.mobile || "-"}</td>
-
-                <td>
-                    <button
-                        onclick="deleteUser(${user.id})"
-                        class="delete-btn"
-                    >
-                        Delete
-                    </button>
-                </td>
-
-            </tr>
-        `;
-    });
-
-    // COURSES
-    const courseContainer =
-        document.getElementById("adminCourseContainer");
-
-    courseContainer.innerHTML = "";
-
-    data.courses.forEach(course => {
-
-        courseContainer.innerHTML += `
-            <div class="card">
-
-                <h3>${course.title}</h3>
-
-                <p>${course.description}</p>
-
-                <h4>₹ ${course.price}</h4>
-
-                <button
-                    class="delete-btn"
-                    onclick="deleteCourse(${course.id})"
-                >
-                    Delete Course
-                </button>
-
-            </div>
-        `;
-    });
-
-    // PURCHASES
-    const purchasesTable =
-        document.getElementById("adminPurchasesTable");
-
-    purchasesTable.innerHTML = "";
-
-    data.purchases.forEach(purchase => {
-
-        purchasesTable.innerHTML += `
-            <tr>
-
-                <td>${purchase.id}</td>
-
-                <td>${purchase.studentId}</td>
-
-                <td>${purchase.courseId}</td>
-
-                <td>Purchased</td>
-
-                <td>
-                    ${new Date(
-                        purchase.createdAt
-                    ).toLocaleString()}
-                </td>
-
-            </tr>
-        `;
-    });
-
-    // PAYMENTS
-    const paymentsTable =
-        document.getElementById("adminPaymentsTable");
-
-    paymentsTable.innerHTML = "";
-
-    data.payments.forEach(payment => {
-
-        paymentsTable.innerHTML += `
-            <tr>
-
-                <td>${payment.id}</td>
-
-                <td>${payment.studentId}</td>
-
-                <td>${payment.courseId}</td>
-
-                <td>₹ ${payment.amount}</td>
-
-                <td>${payment.status}</td>
-
-            </tr>
-        `;
-    });
-}
-
 async function uploadCourseNote() {
     const courseId = document.getElementById("noteCourseId").value;
     const title = document.getElementById("noteTitle").value;
@@ -1278,6 +1074,39 @@ async function deleteUser(userId) {
     }
 }
 
+async function approveTeacher(teacherId) {
+    if (!confirm("Approve this teacher account?")) {
+        return;
+    }
+
+    showLoader("Approving Teacher...");
+
+    try {
+        const res = await apiFetch(
+            `${API_BASE_URL}/admin/approve-teacher/${teacherId}`,
+            {
+                method: "PUT"
+            }
+        );
+
+        const data = await res.json();
+
+        hideLoader();
+
+        if (res.ok) {
+            showToast(data.message, "success");
+            loadAdminDashboard();
+        } else {
+            showToast(data.message || "Approval failed", "error");
+        }
+
+    } catch (error) {
+        hideLoader();
+        console.log(error);
+        showToast("Server Error", "error");
+    }
+}
+
 async function deleteCourse(courseId) {
     if (!confirm("Are you sure you want to delete this course?")) {
         return;
@@ -1593,9 +1422,37 @@ async function loadAdminDashboard() {
 
     const usersTable = document.getElementById("adminUsersTable");
     if (usersTable) {
-        usersTable.innerHTML = "";
-        (data.users || []).forEach(user => usersTable.innerHTML += `<tr><td>${user.id}</td><td>${safeText(user.name)}</td><td>${safeText(user.email)}</td><td>${safeText(user.role)}</td><td>${safeText(user.mobile || '-')}</td><td><button onclick="deleteUser(${user.id})" class="delete-btn">Delete</button></td></tr>`);
-    }
+    usersTable.innerHTML = "";
+
+    (data.users || []).forEach(user => {
+        const status =
+            user.role === "teacher"
+                ? (user.isApproved ? "Approved" : "Pending Approval")
+                : "Active";
+
+        const approveButton =
+            user.role === "teacher" && !user.isApproved
+                ? `<button onclick="approveTeacher(${user.id})">Approve</button>`
+                : "";
+
+        usersTable.innerHTML += `
+            <tr>
+                <td>${user.id}</td>
+                <td>${safeText(user.name)}</td>
+                <td>${safeText(user.email)}</td>
+                <td>${safeText(user.role)}</td>
+                <td>${safeText(user.mobile || '-')}</td>
+                <td>${status}</td>
+                <td>
+                    ${approveButton}
+                    <button onclick="deleteUser(${user.id})" class="delete-btn">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+}
 
     const courseContainer = document.getElementById("adminCourseContainer");
     if (courseContainer) {
