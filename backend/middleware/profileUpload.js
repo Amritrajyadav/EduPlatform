@@ -1,11 +1,23 @@
 const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary");
 
-const storage = multer.memoryStorage();
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: async (req, file) => {
+        return {
+            folder: "eduplatform/profile",
+            resource_type: "image",
+            public_id: `profile_${req.user.id}_${Date.now()}`,
+            allowed_formats: ["jpg", "jpeg", "png", "webp"]
+        };
+    }
+});
 
 const profileUpload = multer({
     storage,
     limits: {
-        fileSize: 15 * 1024 * 1024 // 15 MB limit
+        fileSize: 15 * 1024 * 1024
     }
 });
 
