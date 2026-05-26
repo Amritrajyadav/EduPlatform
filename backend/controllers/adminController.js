@@ -32,6 +32,7 @@ const getAdminDashboard = async (req, res) => {
                 "subject",
                 "experience",
                 "profilePhoto",
+                "isApproved",
                 "createdAt"
             ]
         });
@@ -151,8 +152,44 @@ const deleteCourse = async (req, res) => {
     }
 };
 
+// APPROVE TEACHER
+const approveTeacher = async (req, res) => {
+    try {
+        const { teacherId } = req.params;
+
+        const teacher = await User.findByPk(teacherId);
+
+        if (!teacher) {
+            return res.status(404).json({
+                message: "Teacher not found"
+            });
+        }
+
+        if (teacher.role !== "teacher") {
+            return res.status(400).json({
+                message: "Selected user is not a teacher"
+            });
+        }
+
+        teacher.isApproved = true;
+        await teacher.save();
+
+        res.status(200).json({
+            message: "Teacher approved successfully"
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message: "Server Error"
+        });
+    }
+};
+
 module.exports = {
     getAdminDashboard,
     deleteUser,
-    deleteCourse
+    deleteCourse,
+    approveTeacher
 };

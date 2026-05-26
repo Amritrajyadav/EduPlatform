@@ -23,6 +23,11 @@ const User = sequelize.define("User", {
         allowNull: false,
         defaultValue: "student"
     },
+    
+    isApproved: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
 
     mobile: {
         type: DataTypes.STRING,

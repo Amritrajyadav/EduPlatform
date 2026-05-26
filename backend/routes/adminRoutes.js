@@ -4,7 +4,8 @@ const router = express.Router();
 const {
     getAdminDashboard,
     deleteUser,
-    deleteCourse
+    deleteCourse,
+    approveTeacher
 } = require("../controllers/adminController");
 
 const { protect, allowRoles } = require("../middleware/authMiddleware");
@@ -20,5 +21,8 @@ router.delete("/delete-user/:userId", deleteUser);
 
 // DELETE COURSE
 router.delete("/delete-course/:courseId", deleteCourse);
+
+// APPROVE TEACHER
+router.put("/approve-teacher/:teacherId", approveTeacher);
 
 module.exports = router;

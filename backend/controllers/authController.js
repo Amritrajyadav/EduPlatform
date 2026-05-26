@@ -17,7 +17,8 @@ function buildUser(user) {
         subject: user.subject,
         experience: user.experience,
         profilePhoto: user.profilePhoto,
-        emailVerified: user.emailVerified
+        emailVerified: user.emailVerified,
+        isApproved: user.isApproved
     };
 }
 
@@ -25,6 +26,14 @@ function buildUser(user) {
 const register = async (req, res) => {
     try {
         const { name, email, password, role, mobile, subject, experience } = req.body;
+        if (role === "admin") {
+            return res.status(403).json({
+                message: "Admin registration is not allowed"
+            });
+        }
+
+        const finalRole = role === "teacher" ? "teacher" : "student";
+        const isApproved = finalRole === "student";
 
         const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {
@@ -38,7 +47,8 @@ const register = async (req, res) => {
             name,
             email,
             password: hashedPassword,
-            role,
+            role: finalRole,
+            isApproved,
             mobile,
             subject,
             experience,
@@ -66,7 +76,15 @@ const login = async (req, res) => {
         if (!user) return res.status(400).json({ message: "Invalid Email" });
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ message: "Invalid Password" });
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid Password" });
+        }
+
+        if (user.role === "teacher" && !user.isApproved) {
+            return res.status(403).json({
+                message: "Your teacher account is waiting for admin approval"
+            });
+        }
 
         const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
